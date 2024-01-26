@@ -1,26 +1,16 @@
-.rect-parent {
-  width: 450px;
-  height: 850px;
-  outline: 1px solid red;
-  overflow: hidden;
-  margin: auto;
-
-  .rect {
-    width: 140px;
-    height: 130px;
-    border-radius: 2px;
-    background-color: #29e;
-    color: white;
-    font-size: 20px;
-    touch-action: none;
-    /* This makes things *much* easier */
-    box-sizing: border-box;
-    background-color: rgba(255, 0, 0, 0.2);
-    position: relative;
-  }
-}
-
 .rect {
+  width: 140px;
+  height: 130px;
+  border-radius: 2px;
+  background-color: #29e;
+  color: white;
+  font-size: 20px;
+  touch-action: none;
+  /* This makes things *much* easier */
+  box-sizing: border-box;
+  background-color: rgba(255, 0, 0, 0.2);
+  position: absolute;
+  z-index: 1;
   span {
     position: absolute;
     width: 5px;
@@ -63,13 +53,13 @@
   .left {
     left: 0px;
     top: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
   }
 
   .right {
     right: 0px;
     top: 50%;
-    transform: translateX(50%);
+    transform: translate(50%, -50%);
   }
 
   .remove-rect {
@@ -84,5 +74,6 @@
     cursor: pointer;
     position: absolute;
     right: 0;
+    touch-action: none;
   }
 }

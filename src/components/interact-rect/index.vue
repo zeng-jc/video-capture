@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { getCoordinate, getTranslate } from './index'
 import interact from 'interactjs'
 import type { InteractEvent, ResizeEvent } from '@interactjs/types/index'
-const rectParent = ref()
+const emits = defineEmits(['remove', 'coordinate'])
+
 const rect = ref<HTMLDivElement>()
 const removeRect = () => {
   rect.value?.remove()
+  emits('remove')
 }
 
 onMounted(() => {
@@ -30,8 +32,8 @@ onMounted(() => {
         },
         end(event) {
           const { x, y } = getTranslate(getComputedStyle(event.target).transform)
-          console.log(
-            'topLeftX,topLeftY: ',
+          emits(
+            'coordinate',
             getCoordinate(x, y, Math.round(event.rect.width), Math.round(event.rect.height))
           )
         }
@@ -43,7 +45,7 @@ onMounted(() => {
         }),
         // minimum size
         interact.modifiers.restrictSize({
-          min: { width: 50, height: 50 }
+          min: { width: 14, height: 14 }
         })
       ],
 
@@ -56,7 +58,7 @@ onMounted(() => {
       modifiers: [
         interact.modifiers.restrictRect({
           restriction: 'parent',
-          endOnly: true
+          endOnly: false
         })
       ],
       // enable autoScroll
@@ -68,8 +70,8 @@ onMounted(() => {
         // call this function on every dragend event
         end(event) {
           const { x, y } = getTranslate(getComputedStyle(event.target).transform)
-          console.log(
-            'topLeftX,topLeftY: ',
+          emits(
+            'coordinate',
             getCoordinate(x, y, Math.round(event.rect.width), Math.round(event.rect.height))
           )
         }
@@ -92,24 +94,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="rect-parent" ref="rectParent">
-    <div
-      class="rect"
-      style="transform: translate(100px, 100px)"
-      data-x="100"
-      data-y="100"
-      ref="rect"
-    >
-      <span class="remove-rect" @click="removeRect">×</span>
-      <span class="top-left"></span>
-      <span class="top-right"></span>
-      <span class="bottom-right"></span>
-      <span class="bottom-left"></span>
-      <span class="top"></span>
-      <span class="bottom"></span>
-      <span class="left"></span>
-      <span class="right"></span>
-    </div>
+  <div class="rect" style="transform: translate(100px, 100px)" data-x="100" data-y="100" ref="rect">
+    <span class="remove-rect" @click="removeRect">×</span>
+    <span class="top-left"></span>
+    <span class="top-right"></span>
+    <span class="bottom-right"></span>
+    <span class="bottom-left"></span>
+    <span class="top"></span>
+    <span class="bottom"></span>
+    <span class="left"></span>
+    <span class="right"></span>
   </div>
 </template>
 
