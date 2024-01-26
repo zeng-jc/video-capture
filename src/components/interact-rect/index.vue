@@ -4,6 +4,13 @@ import { getCoordinate, getTranslate } from './index'
 import interact from 'interactjs'
 import type { InteractEvent, ResizeEvent } from '@interactjs/types/index'
 const emits = defineEmits(['remove', 'coordinate'])
+const props = defineProps({
+  a: {
+    type: String
+  }
+})
+
+console.log('rect props', props)
 
 const rect = ref<HTMLDivElement>()
 const removeRect = () => {
