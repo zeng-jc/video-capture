@@ -1,16 +1,16 @@
-<script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+<script setup lang="ts" name="interact-rect">
+import { ref, onMounted } from 'vue'
 import { getCoordinate, getTranslate } from './index'
 import interact from 'interactjs'
 import type { InteractEvent, ResizeEvent } from '@interactjs/types/index'
 const emits = defineEmits(['remove', 'coordinate'])
-const props = defineProps({
-  a: {
-    type: String
-  }
-})
+// const props = defineProps({
+//   a: {
+//     type: String
+//   }
+// })
 
-console.log('rect props', props)
+// console.log('rect props', props)
 
 const rect = ref<HTMLDivElement>()
 const removeRect = () => {
@@ -97,6 +97,7 @@ onMounted(() => {
   }
   // this function is used later in the resizing and gesture demos
   // window.dragMoveListener = dragMoveListener
+  emits('coordinate', getCoordinate(100, 100, Math.round(100), Math.round(100)))
 })
 </script>
 
