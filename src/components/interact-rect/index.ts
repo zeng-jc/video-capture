@@ -8,31 +8,19 @@ export function getCoordinate(
 ) {
   const position = {
     topLeft: {
-      sx:
-        parseInt(leftX * widthScal) > 1080
-          ? parseInt(leftX * widthScal) - 1
-          : parseInt(leftX * widthScal),
+      sx: leftX * widthScal > 1080 ? 1080 : Math.floor(leftX * widthScal),
       sy: Math.floor(TopY * heightScal)
     },
     topRight: {
-      sx:
-        parseInt((leftX + width) * widthScal) > 1080
-          ? parseInt((leftX + width) * widthScal) - 1
-          : parseInt((leftX + width) * widthScal),
+      sx: (leftX + width) * widthScal > 1080 ? 1080 : Math.floor((leftX + width) * widthScal),
       sy: Math.floor(TopY * heightScal)
     },
     bottomRight: {
-      sx:
-        parseInt((leftX + width) * widthScal) > 1080
-          ? parseInt((leftX + width) * widthScal) - 1
-          : parseInt((leftX + width) * widthScal),
+      sx: (leftX + width) * widthScal > 1080 ? 1080 : Math.floor((leftX + width) * widthScal),
       sy: Math.floor((TopY + height) * heightScal)
     },
     bottomLeft: {
-      sx:
-        parseInt(leftX * widthScal) > 1080
-          ? parseInt(leftX * widthScal) - 1
-          : parseInt(leftX * widthScal),
+      sx: leftX * widthScal > 1080 ? 1080 : Math.floor(leftX * widthScal),
       sy: Math.floor((TopY + height) * heightScal)
     }
   }
