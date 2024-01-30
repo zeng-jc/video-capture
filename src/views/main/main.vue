@@ -13,7 +13,7 @@ let increment = 0
 const addEraseRect = () => {
   rects.push({ component: markRaw(InteractRect), id: increment++ })
 }
-const addProtectedRect = () => {}
+// const addProtectedRect = () => {}
 const removeRect = (index: number) => {
   rects.splice(index, 1)
 }
@@ -27,6 +27,8 @@ const clearRect = () => {
 
 const width = ref<string>('0px')
 const height = ref<string>('0px')
+const videoWidth = ref<number>(0)
+const videoHeight = ref<number>(0)
 const dynamicStyle = computed(() => {
   return {
     width: width.value,
@@ -36,11 +38,22 @@ const dynamicStyle = computed(() => {
 
 /**  video  **/
 const videoRectRef = ref()
-const videoLoadHandler = ({ width: w, height: h }: { width: string; height: string }) => {
-  console.log(w, h)
-
+const videoLoadHandler = ({
+  width: w,
+  height: h,
+  videoWidth: videoW,
+  videoHeight: videoH
+}: {
+  width: string
+  height: string
+  videoWidth: number
+  videoHeight: number
+}) => {
+  console.log(w, h, videoW, videoH)
   width.value = w
   height.value = h
+  videoWidth.value = videoW
+  videoHeight.value = videoH
 }
 const selectVideo = (e: Event) => {
   const file = (e.target as HTMLInputElement)?.files![0]
@@ -69,7 +82,10 @@ const selectVideo = (e: Event) => {
               coordinateRect(index, payload)
             }
           "
-          a="aaa"
+          :width="parseInt(width)"
+          :height="parseInt(height)"
+          :videoWidth="videoWidth"
+          :videoHeight="videoHeight"
         ></component>
       </div>
     </div>

@@ -4,13 +4,27 @@ import { getCoordinate, getTranslate } from './index'
 import interact from 'interactjs'
 import type { InteractEvent, ResizeEvent } from '@interactjs/types/index'
 const emits = defineEmits(['remove', 'coordinate'])
-// const props = defineProps({
-//   a: {
-//     type: String
-//   }
-// })
-
-// console.log('rect props', props)
+const props = defineProps({
+  width: {
+    type: Number,
+    default: 0
+  },
+  height: {
+    type: Number,
+    default: 0
+  },
+  videoWidth: {
+    type: Number,
+    default: 0
+  },
+  videoHeight: {
+    type: Number,
+    default: 0
+  }
+})
+const { width, height, videoWidth, videoHeight } = props
+const widthScal = width < videoWidth ? videoWidth / width : width / videoWidth
+const heightScal = height < videoHeight ? videoHeight / height : width / videoWidth
 
 const rect = ref<HTMLDivElement>()
 const removeRect = () => {
@@ -41,7 +55,14 @@ onMounted(() => {
           const { x, y } = getTranslate(getComputedStyle(event.target).transform)
           emits(
             'coordinate',
-            getCoordinate(x, y, Math.round(event.rect.width), Math.round(event.rect.height))
+            getCoordinate(
+              x,
+              y,
+              Number(event.rect.width),
+              Number(event.rect.height),
+              widthScal,
+              heightScal
+            )
           )
         }
       },
@@ -79,7 +100,14 @@ onMounted(() => {
           const { x, y } = getTranslate(getComputedStyle(event.target).transform)
           emits(
             'coordinate',
-            getCoordinate(x, y, Math.round(event.rect.width), Math.round(event.rect.height))
+            getCoordinate(
+              x,
+              y,
+              Number(event.rect.width),
+              Number(event.rect.height),
+              widthScal,
+              heightScal
+            )
           )
         }
       }
@@ -97,7 +125,7 @@ onMounted(() => {
   }
   // this function is used later in the resizing and gesture demos
   // window.dragMoveListener = dragMoveListener
-  emits('coordinate', getCoordinate(100, 100, Math.round(100), Math.round(100)))
+  emits('coordinate', getCoordinate(100, 100, Number(100), Number(100), widthScal, heightScal))
 })
 </script>
 

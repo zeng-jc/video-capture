@@ -20,21 +20,17 @@ const initVideo = () => {
     inactivityTimeout: 0
   }
   if (!videoRef.value) return
-  videoPlayer = videojs(videoRef.value, options, () => {
-    emits('videoLoad', getVideoStyle(videoRef.value))
-  })
+  videoPlayer = videojs(videoRef.value, options, () => {})
   videoPlayer.on('loadeddata', () => {
-    emits('videoLoad', getVideoStyle(videoRef.value))
+    if (!videoRef.value) return
+    const { width, height } = getComputedStyle(videoRef.value)
+    emits('videoLoad', {
+      width,
+      height,
+      videoWidth: videoPlayer.videoWidth(),
+      videoHeight: videoPlayer.videoHeight()
+    })
   })
-}
-
-const getVideoStyle = (el: Element | undefined) => {
-  if (!el) return
-  const { width, height } = getComputedStyle(el)
-  return {
-    width,
-    height
-  }
 }
 
 onMounted(() => {

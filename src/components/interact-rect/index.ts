@@ -1,20 +1,39 @@
-export function getCoordinate(leftX: number, TopY: number, width: number, height: number) {
+export function getCoordinate(
+  leftX: number,
+  TopY: number,
+  width: number,
+  height: number,
+  widthScal: number,
+  heightScal: number
+) {
   const position = {
     topLeft: {
-      sx: leftX,
-      sy: TopY
+      sx:
+        parseInt(leftX * widthScal) > 1080
+          ? parseInt(leftX * widthScal) - 1
+          : parseInt(leftX * widthScal),
+      sy: Math.floor(TopY * heightScal)
     },
     topRight: {
-      sx: leftX + width,
-      sy: TopY
+      sx:
+        parseInt((leftX + width) * widthScal) > 1080
+          ? parseInt((leftX + width) * widthScal) - 1
+          : parseInt((leftX + width) * widthScal),
+      sy: Math.floor(TopY * heightScal)
     },
     bottomRight: {
-      sx: leftX + width,
-      sy: TopY + width
+      sx:
+        parseInt((leftX + width) * widthScal) > 1080
+          ? parseInt((leftX + width) * widthScal) - 1
+          : parseInt((leftX + width) * widthScal),
+      sy: Math.floor((TopY + height) * heightScal)
     },
     bottomLeft: {
-      sx: leftX,
-      sy: TopY + height
+      sx:
+        parseInt(leftX * widthScal) > 1080
+          ? parseInt(leftX * widthScal) - 1
+          : parseInt(leftX * widthScal),
+      sy: Math.floor((TopY + height) * heightScal)
     }
   }
   return position
