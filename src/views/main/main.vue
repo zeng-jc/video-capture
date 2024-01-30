@@ -52,9 +52,8 @@ const selectVideo = (e: Event) => {
 
 <template>
   <div class="main">
-    <h2>main</h2>
     <button @click="addEraseRect">添加擦除rect</button>
-    <button @click="addProtectedRect">添加保护rect</button>
+    <!-- <button @click="addProtectedRect">添加保护rect</button> -->
     <button @click="clearRect">清空rect</button>
     <input type="file" accept="video/*" @change="selectVideo" />
     <div class="video-rect-container">

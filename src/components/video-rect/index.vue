@@ -53,7 +53,7 @@ defineExpose({ changeVideo })
 </script>
 
 <template>
-  <video id="my-video" ref="videoRef" class="video-js" height="750">
+  <video id="my-video" ref="videoRef" class="video-js" height="680">
     <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" />
     <p class="vjs-no-js">
       To view this video please enable JavaScript, and consider upgrading to a web browser that
