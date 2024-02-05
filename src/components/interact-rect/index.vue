@@ -61,7 +61,9 @@ onMounted(() => {
               Number(event.rect.width),
               Number(event.rect.height),
               widthScal,
-              heightScal
+              heightScal,
+              videoWidth,
+              videoHeight
             )
           )
         }
@@ -106,7 +108,9 @@ onMounted(() => {
               Number(event.rect.width),
               Number(event.rect.height),
               widthScal,
-              heightScal
+              heightScal,
+              videoWidth,
+              videoHeight
             )
           )
         }
@@ -125,7 +129,19 @@ onMounted(() => {
   }
   // this function is used later in the resizing and gesture demos
   // window.dragMoveListener = dragMoveListener
-  emits('coordinate', getCoordinate(100, 100, Number(100), Number(100), widthScal, heightScal))
+  emits(
+    'coordinate',
+    getCoordinate(
+      100,
+      100,
+      Number(100),
+      Number(100),
+      widthScal,
+      heightScal,
+      videoWidth,
+      videoHeight
+    )
+  )
 })
 </script>
 

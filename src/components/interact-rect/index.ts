@@ -4,23 +4,28 @@ export function getCoordinate(
   width: number,
   height: number,
   widthScal: number,
-  heightScal: number
+  heightScal: number,
+  videoWidth: number,
+  videoHeight: number
 ) {
   const position = {
     topLeft: {
-      sx: leftX * widthScal > 1080 ? 1080 : Math.floor(leftX * widthScal),
+      sx: leftX * widthScal,
       sy: Math.floor(TopY * heightScal)
     },
     topRight: {
-      sx: (leftX + width) * widthScal > 1080 ? 1080 : Math.floor((leftX + width) * widthScal),
+      sx:
+        (leftX + width) * widthScal > videoWidth
+          ? videoWidth
+          : Math.floor((leftX + width) * widthScal),
       sy: Math.floor(TopY * heightScal)
     },
     bottomRight: {
-      sx: (leftX + width) * widthScal > 1080 ? 1080 : Math.floor((leftX + width) * widthScal),
+      sx: (leftX + width) * widthScal,
       sy: Math.floor((TopY + height) * heightScal)
     },
     bottomLeft: {
-      sx: leftX * widthScal > 1080 ? 1080 : Math.floor(leftX * widthScal),
+      sx: leftX * widthScal > videoWidth ? videoWidth : Math.floor(leftX * widthScal),
       sy: Math.floor((TopY + height) * heightScal)
     }
   }
